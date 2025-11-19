@@ -29,3 +29,15 @@ const filterByRating: FilterByRating = (arr) => {
   const newArray = arr.filter((item) => item.rating >= 4.0);
   return newArray;
 };
+
+type usersType = {
+  id: number;
+  name: string;
+  email: string;
+  isActive: boolean;
+};
+type ActiveUsersFunc = (arr: Array<usersType>) => Array<usersType>;
+const filterActiveUsers: ActiveUsersFunc = (arr) => {
+  const activeUsersArray = arr.filter((user) => user.isActive === true);
+  return activeUsersArray;
+};
