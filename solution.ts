@@ -56,3 +56,84 @@ const printBookDetails = (book: Book): void => {
   }`;
   console.log(bookDetail);
 };
+
+interface Iunique {
+  (arr1: Array<number>, arr2: Array<number>): Array<number>;
+}
+const insertionSorting = (arr: Array<number>): Array<number> => {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
+  }
+  return arr;
+};
+const binarySearch = (arr: Array<number>, target: number): boolean => {
+  const sortedArray = insertionSorting(arr);
+  let left = 0;
+  let right = sortedArray.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (sortedArray[mid] === target) {
+      return true;
+    }
+    if (sortedArray[mid] > target) {
+      right = mid - 1;
+    }
+    if (sortedArray[mid] < target) {
+      left = mid + 1;
+    }
+  }
+  return false;
+};
+
+const getUniqueValues: Iunique = (arr1, arr2) => {
+  const arr: Array<number> = [];
+  for (let i = 0; i < arr1.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      if (arr1[i] === arr2[j]) {
+        break;
+      } else {
+        if (
+          binarySearch(arr, arr1[i]) === true &&
+          binarySearch(arr, arr2[j]) === true
+        ) {
+          break;
+        }
+        if (
+          binarySearch(arr, arr1[i]) === true &&
+          binarySearch(arr, arr2[j]) === false
+        ) {
+          arr[arr.length] = arr2[j];
+        }
+        if (
+          binarySearch(arr, arr1[i]) === false &&
+          binarySearch(arr, arr2[j]) === true
+        ) {
+          arr[arr.length] = arr1[i];
+        }
+        if (
+          binarySearch(arr, arr1[i]) === false &&
+          binarySearch(arr, arr2[j]) === false
+        ) {
+          arr[arr.length] = arr1[i];
+          arr[arr.length] = arr2[j];
+        }
+      }
+    }
+  }
+
+  return arr;
+};
+
+// type Product = {
+//   name: string;
+//   price: number;
+//   quantity: number;
+//   discount?: number;
+// };
+// const calculateTotalPrice = (arr:Array<Product>):number => {};
