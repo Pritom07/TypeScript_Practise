@@ -22,5 +22,10 @@ class Person {
     return `'Name: ${this.name}, Age: ${this.age}'`;
   }
 }
-const person1 = new Person("John Doe", 30);
-const person2 = new Person("Alice", 25);
+
+type itemsObj = { title: string; rating: number };
+type FilterByRating = (arr: Array<itemsObj>) => Array<itemsObj>;
+const filterByRating: FilterByRating = (arr) => {
+  const newArray = arr.filter((item) => item.rating >= 4.0);
+  return newArray;
+};
