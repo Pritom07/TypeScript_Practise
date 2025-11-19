@@ -126,14 +126,30 @@ const getUniqueValues: Iunique = (arr1, arr2) => {
       }
     }
   }
-
   return arr;
 };
 
-// type Product = {
-//   name: string;
-//   price: number;
-//   quantity: number;
-//   discount?: number;
-// };
-// const calculateTotalPrice = (arr:Array<Product>):number => {};
+type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number;
+};
+const totalPriceCalculation = (arr: Array<number>): number => {
+  const total = arr.reduce((init, val) => {
+    return init + val;
+  }, 0);
+  return total;
+};
+const calculateTotalPrice = (arr: Array<Product>): number => {
+  const priceArray: Array<number> = arr.map((productObj: Product) => {
+    const initAmount = productObj.price * productObj.quantity;
+    if (productObj?.discount) {
+      const totDiscount = (productObj?.discount / 100) * initAmount;
+      const totPrice = initAmount - totDiscount;
+      return totPrice;
+    }
+    return initAmount;
+  });
+  return totalPriceCalculation(priceArray);
+};
