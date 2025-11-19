@@ -41,3 +41,18 @@ const filterActiveUsers: ActiveUsersFunc = (arr) => {
   const activeUsersArray = arr.filter((user) => user.isActive === true);
   return activeUsersArray;
 };
+
+interface Book {
+  title: string;
+  author: string;
+  publishedYear: number;
+  isAvailable: boolean;
+}
+const printBookDetails = (book: Book): void => {
+  const bookDetail = `Title: ${book.title}, Author: ${
+    book.author
+  }, Published: ${book.publishedYear}, Available: ${
+    book.isAvailable ? "Yes" : "No"
+  }`;
+  console.log(bookDetail);
+};
